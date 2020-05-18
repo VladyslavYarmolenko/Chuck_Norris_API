@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css">
+  <script src="js/script.js" defer></script>
+  <title>Chuck_Norris_API</title>
+</head>
+<body>
+<div id="overlay"></div>
+<div class="wrapper" id="main">
+  <div class="checkbox_burger" id="checkbox_div">
+    <input type="checkbox" class="burger_menu" id="checkbox-toggle" name="" value="">
+    <label for="checkbox-toggle">Favourite</label>
+  </div>
+  <div class="wrapper_left_screen" id="left_screen">
+    <div class="wrapper_left_screen_top">
+      <div class="left_screen_top_header">
+        <p class="title">MSI 2020</p>
+      </div>
+      <div class="greetings">
+        <p class="greetings_top">Hey!</p>
+        <p class="greetings_bottom">Let`s try to find a joke for you:</p>
+      </div>
+      <form action="#" name="selectForm" id="selectForm">
+
+        <div class="radio">
+          <div class="radio_wrapper"><input type="radio" value="Random" name="Radios" class="radio_button" id="typeChoise1" checked><label for="typeChoise1">Random</label></div>
+        
+          <div class="radio_wrapper"><input type="radio" value="categories" name="Radios" class="radio_button" id="typeChoise2"><label for="typeChoise2">From categories</label></div>
+
+          <div id="typeChoise_categories" >
+          </div>
+
+          <div class="radio_wrapper"><input type="radio" value="Search" name="Radios" class="radio_button" id="typeChoise3"><label for="typeChoise3">Search</label></div> 
+          <input type="text" id="search_text" name="textfield"  placeholder="Free text search...">
+
+          <button type="submit" class="submit">Get a joke</button>
+        </div>
+
+      </form>
+    </div>
+
+    <div class="wrapper_left_screen_bottom" id="left_screen_bottom">
+    </div>
+  </div>
+
+  <div class="wrapper_right_screen" id="right_screen">
+    <div class="right_screen_content">
+      <p class="right_screen_title">Favourite</p>
+      <div class="right_screen_joke_item" id="right_screen_joke">
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
