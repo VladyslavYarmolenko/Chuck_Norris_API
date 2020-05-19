@@ -191,7 +191,7 @@ function HideFavorites () {
     let JokeCategory = null;
     
 
-      if(receivedAnswer.categories !== []){
+      if(jokeObject.categories !== []){
         JokeCategory = jokeObject.categories[0];
       }
     
@@ -211,7 +211,39 @@ function HideFavorites () {
 
           let likeDiv = document.createElement("div");
           likeDiv.classList.add("heart_unchecked_image");
-          likeDiv.addEventListener('click', checkFavorites);
+          likeDiv.setAttribute('id', "heart")
+          likeDiv.addEventListener('click', function() {
+            const heartImage = this;
+            if (localStorage.getItem('favorites') === null){
+              let favoritesArr = [];
+              favoritesArr.push(jokeObject);
+              localStorage.setItem('favorites',  JSON.stringify(favoritesArr));
+              createJokeItem(jokeObject, rightScreenJoke);
+              heartImage.classList.remove("heart_unchecked_image");
+              heartImage.classList.add('heart_image');
+            }
+      
+      
+            else {
+                let favoritesArr = localStorage.getItem('favorites');
+                favoritesArr = JSON.parse(favoritesArr);
+                if(favoritesArr.find(function(item){return item.id === jokeObject.id})){
+                  favoritesArr =  favoritesArr.filter(item => item.id !== jokeObject.id);
+                  localStorage.setItem('favorites', JSON.stringify(favoritesArr));
+                  heartImage.classList.remove("heart_unchecked_image");
+                  heartImage.classList.add('heart_unchecked_image');
+                  removeJokeItem(jokeObject.id);
+               }
+      
+                else {
+                favoritesArr.push(jokeObject);
+                localStorage.setItem('favorites', JSON.stringify(favoritesArr));
+                createJokeItem(jokeObject, rightScreenJoke);
+                heartImage.classList.remove("heart_unchecked_image");
+                heartImage.classList.add('heart_image');
+            }
+          }
+          });
           JokeDivHeader.appendChild(likeDiv);
 
         /// joke item center
@@ -299,62 +331,10 @@ function HideFavorites () {
 
 
     function removeJokeItem(id){
-      let FavJokeItem = rightScreenJoke.getElementById(id);
-      console.log(FavJokeItem);
-      FavJokeItem.remove()
+      let FavJokeItem = rightScreenJoke.querySelector(`[data-id=${id}]`);
+      let Joke = leftScreenBottom.querySelector(`[data-id=${id}]`);
+      let JokeLike = Joke.querySelector(`[id=${"heart"}]`);
+      FavJokeItem.remove();
+      JokeLike.classList.remove("heart_image");
+      JokeLike.classList.add('heart_unchecked_image');
     }
-
-    // function removeJokeItem(id, screen) {
-    //   let FavJokes = null;
-    //   for (i = 0; i < screen.children; i++ ){
-    //     if(screen.children[i].id = id){
-    //       FavJokes = screen.children[i].id;
-    //       console.log(FavJokes)
-    //     }
-    //     FavJokes.remove();
-    //   }
-    
-
-    // rightScreenJoke.children.forEach(element => element.classList.add("checked_joke"));
-    
- 
-
-    function checkFavorites(jokeObject) {
-      const heartImage = this;
-      if (localStorage.getItem('favorites') === null){
-        let favoritesArr = [];
-        favoritesArr.push(receivedAnswer);
-        localStorage.setItem('favorites',  JSON.stringify(favoritesArr));
-        createJokeItem(receivedAnswer, rightScreenJoke);
-        heartImage.classList.remove("heart_unchecked_image");
-        heartImage.classList.add('heart_image');
-      }
-
-
-      else {
-          let favoritesArr = localStorage.getItem('favorites');
-          favoritesArr = JSON.parse(favoritesArr);
-          if(favoritesArr.find(function(item){return item.id === receivedAnswer.id})){
-            favoritesArr =  favoritesArr.filter(item => item.id !== receivedAnswer.id);
-            localStorage.setItem('favorites', JSON.stringify(favoritesArr));
-            heartImage.classList.remove("heart_image");
-            heartImage.classList.add('heart_unchecked_image');
-            removeJokeItem(receivedAnswer.id);
-         }
-
-          else {
-          favoritesArr.push(receivedAnswer);
-          localStorage.setItem('favorites', JSON.stringify(favoritesArr));
-          createJokeItem(receivedAnswer, rightScreenJoke);
-          heartImage.classList.remove("heart_unchecked_image");
-          heartImage.classList.add('heart_image');
-      }
-    }
-    }
-
-
-    // let FavJokesArr =  rightScreenJoke.children
-    // console.log(FavJokesArr);
-
-    // let leftScreenJokeId = leftScreenBottom.children
-    // console.log(leftScreenJokeId)
