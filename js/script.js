@@ -15,6 +15,8 @@ let link = 'random';
 let CategoryName = null;
 let receivedAnswer = null;
 
+GetFavotites();
+  
 
 checkbox.addEventListener("click", checkboxHandler);
 overlay.addEventListener("click", HideFavorites);
@@ -97,6 +99,7 @@ function HideFavorites () {
      
      let CategoryDiv = document.createElement('button');
      CategoryDiv.classList.add("category");
+     CategoryDiv.setAttribute('type', 'button');
      CategoryDiv.innerHTML = element;
      categories.appendChild(CategoryDiv);
 
@@ -337,4 +340,18 @@ function HideFavorites () {
       FavJokeItem.remove();
       JokeLike.classList.remove("heart_image");
       JokeLike.classList.add('heart_unchecked_image');
+    }
+
+
+    function GetFavotites() {
+     if  (localStorage.getItem('favorites') === null){
+      return;
+     }
+
+     else {
+      let saveFavorites =localStorage.getItem('favorites');
+      saveFavorites = JSON.parse(saveFavorites);
+      console.log(saveFavorites);
+      saveFavorites.forEach(element => createJokeItem(element, rightScreenJoke))
+     }
     }
