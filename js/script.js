@@ -20,6 +20,8 @@ let NowTime = null;
 
 window.addEventListener('load', function(){
   NowTime = new Date();
+  NowTime = Date.parse(NowTime)
+  console.log(NowTime);
 });
 
 
@@ -200,6 +202,8 @@ function HideFavorites () {
 
     jokeID = jokeObject.id;
     jokeValue = jokeObject.value;
+    let jokeUpdate = Date.parse(jokeObject.updated_at);
+    console.log(jokeUpdate);
     let JokeCategory = null;
     
 
@@ -207,7 +211,7 @@ function HideFavorites () {
         JokeCategory = jokeObject.categories[0];
       }
     
-      
+      console.log(jokeObject)
 
       let JokeDiv = document.createElement("div");
       JokeDiv.classList.add("joke_item");
@@ -233,7 +237,7 @@ function HideFavorites () {
               createJokeItem(jokeObject, rightScreenJoke);
               heartImage.classList.remove("heart_unchecked_image");
               heartImage.classList.add('heart_image');
-            }
+              }
       
       
             else {
@@ -245,8 +249,6 @@ function HideFavorites () {
                   heartImage.classList.remove("heart_unchecked_image");
                   heartImage.classList.add('heart_unchecked_image');
                   removeJokeItem(jokeObject.id);
-                  let updateTime = rightScreenJoke.getElementsByClassName('update_info');
-                  console.log(updateTime);
                }
       
                 else {
@@ -330,8 +332,7 @@ function HideFavorites () {
 
             let updateInfo = document.createElement('p');
             updateInfo.classList.add('update_info');
-            let updateTime = new Date();
-            let updateDiff = GetTimeDiff(updateTime, NowTime);
+            let updateDiff = GetTimeDiff(jokeUpdate, NowTime);
             updateInfo.innerHTML = updateDiff + " hours ago";
             lastUpdate.appendChild(updateInfo);
 
@@ -344,7 +345,6 @@ function HideFavorites () {
             jokeBottom.appendChild(CategoryType);
           } 
     }
-
 
     function removeJokeItem(id){
       let FavJokeItem = rightScreenJoke.querySelector(`[data-id=${id}]`);
@@ -375,5 +375,9 @@ function HideFavorites () {
 
     function GetTimeDiff (publicationDate, OnloadDate){
       let diff = OnloadDate - publicationDate
-      return Math.round(diff/3600000);
+      diff = Math.round(diff/3600000);
+
+      let timer = rightScreenJoke.getElementsByClassName("update_info");
+      console.log(timer)
+      timer.forEach(element => element.innerHTML = diff + " hours ago")
     }
