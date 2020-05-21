@@ -15,6 +15,15 @@ let link = 'random';
 let CategoryName = null;
 let receivedAnswer = null;
 
+let NowTime = null;
+
+
+window.addEventListener('load', function(){
+  NowTime = new Date();
+});
+
+
+
 GetFavotites();
   
 
@@ -236,6 +245,8 @@ function HideFavorites () {
                   heartImage.classList.remove("heart_unchecked_image");
                   heartImage.classList.add('heart_unchecked_image');
                   removeJokeItem(jokeObject.id);
+                  let updateTime = rightScreenJoke.getElementsByClassName('update_info');
+                  console.log(updateTime);
                }
       
                 else {
@@ -319,7 +330,9 @@ function HideFavorites () {
 
             let updateInfo = document.createElement('p');
             updateInfo.classList.add('update_info');
-            updateInfo.innerHTML = "1923 hours ago";
+            let updateTime = new Date();
+            let updateDiff = GetTimeDiff(updateTime, NowTime);
+            updateInfo.innerHTML = updateDiff + " hours ago";
             lastUpdate.appendChild(updateInfo);
 
           
@@ -336,10 +349,13 @@ function HideFavorites () {
     function removeJokeItem(id){
       let FavJokeItem = rightScreenJoke.querySelector(`[data-id=${id}]`);
       let Joke = leftScreenBottom.querySelector(`[data-id=${id}]`);
-      let JokeLike = Joke.querySelector(`[id=${"heart"}]`);
+
       FavJokeItem.remove();
+      let JokeLike = Joke.querySelector(`[id=${"heart"}]`);
+      if(JokeLike){
       JokeLike.classList.remove("heart_image");
       JokeLike.classList.add('heart_unchecked_image');
+    }
     }
 
 
@@ -351,7 +367,13 @@ function HideFavorites () {
      else {
       let saveFavorites =localStorage.getItem('favorites');
       saveFavorites = JSON.parse(saveFavorites);
-      console.log(saveFavorites);
       saveFavorites.forEach(element => createJokeItem(element, rightScreenJoke))
      }
+    }
+
+
+
+    function GetTimeDiff (publicationDate, OnloadDate){
+      let diff = OnloadDate - publicationDate
+      return Math.round(diff/3600000);
     }
