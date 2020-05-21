@@ -15,15 +15,8 @@ let link = 'random';
 let CategoryName = null;
 let receivedAnswer = null;
 
-let NowTime = null;
-
-
-window.addEventListener('load', function(){
-  NowTime = new Date();
-  NowTime = Date.parse(NowTime)
-  console.log(NowTime);
-});
-
+let NowTime = new Date();
+NowTime = Date.parse(NowTime)
 
 
 GetFavotites();
@@ -376,8 +369,5 @@ function HideFavorites () {
     function GetTimeDiff (publicationDate, OnloadDate){
       let diff = OnloadDate - publicationDate
       diff = Math.round(diff/3600000);
-
-      let timer = rightScreenJoke.getElementsByClassName("update_info");
-      console.log(timer)
-      timer.forEach(element => element.innerHTML = diff + " hours ago")
+      return diff;
     }
