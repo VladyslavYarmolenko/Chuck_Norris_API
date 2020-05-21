@@ -4,8 +4,7 @@ p,
 button {
   margin: 0;
   padding: 0;
- 
-} 
+}
 
 #overlay {
   position: fixed;
@@ -462,7 +461,7 @@ label {
     margin-top: 16px;
     margin-left: 60px;
   }
-  
+
   .right_screen_show {
     width: auto;
     position: inherit;
